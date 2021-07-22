@@ -2,13 +2,13 @@ import React from 'react'
 
 const Header = () => {
 
+    // Function to get Value for Deposited Amount
     const DepositValue = () => {
-        const amount = document.getElementById("value").value;
-        prompt(`Today's Savings are Rs. ${amount}`);
+        const depositedAmount = document.getElementById("value").value;
     }
 
     return (
-        <nav className="navbar navbar-light bg-light">
+        <nav className="navbar navbar-light bg-light mb-5">
             <div className="container-fluid">
                 <a className="navbar-brand">My Wallet</a>
                 <div className="d-flex">
