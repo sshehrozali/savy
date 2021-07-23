@@ -1,19 +1,15 @@
+// React Header Component
 import React from 'react'
+import Button from './Button'
 
-const Header = () => {
-
-    // Function to get Value for Deposited Amount
-    const DepositValue = () => {
-        const depositedAmount = document.getElementById("value").value;
-    }
-
+const Header = (props) => {
     return (
         <nav className="navbar navbar-light bg-light mb-5">
             <div className="container-fluid">
                 <a className="navbar-brand">My Wallet</a>
                 <div className="d-flex">
-                <input id="value" className="form-control me-2" type="search" placeholder="Today's Savings..." aria-label="Search" />
-                <button onClick={DepositValue} className="btn btn-outline-success">Deposit</button>
+                <input id="amount" className="form-control me-2" type="search" placeholder="Today's Savings..." aria-label="Search" />
+                <Button onClick={props.onClick}/>
                 </div>
             </div>
         </nav>
