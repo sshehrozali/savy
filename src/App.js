@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import TotalSavings from "./components/TotalSavings";
 import Amount from "./components/Amount";
 
 function App() {
@@ -6,27 +7,30 @@ function App() {
   // Function to get deposited amount from input field
   const getAmount = () => {
   const val = document.getElementById("amount").value;
-  
-  // Create new child Div
-  const childDiv = document.createElement("p");
-  childDiv.innerText = val;
-
-  // Append child Div -> parent Div
-  const parentDiv = document.getElementById("savingsContainer");
-  parentDiv.appendChild(childDiv);
-  
     }
 
+
+    
+  // Savings Data
   const Amounts = [{
     "DATE": "Tuesday",
     "SAVED": "250"
+  },
+  {
+    "DATE": "Wednesday",
+    "SAVED": "180"
+  },
+  {
+    "DATE": "Thursday",
+    "SAVED": "160"
   }]
+
+
 
   return (
     <div className="mainAppWindow">
       <Header onClick={getAmount}/>
-      <Amount allAmounts={Amounts}/>
-      <div id="savingsContainer"></div>
+      <TotalSavings totalAmount={Amounts} />
     </div>
   );
 }
