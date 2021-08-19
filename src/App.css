@@ -1,0 +1,21 @@
+body{
+    background: #1c1c21 !important;
+}
+
+.navbar{
+    background: #1E555C !important;
+}
+
+input{
+    background: #102f33 !important;
+    outline: none !important;
+    border-color: #102f33 !important;
+}
+
+button{
+    background: #F15152 !important;
+}
+
+    button:hover{
+        background: #e73737 !important;
+    }

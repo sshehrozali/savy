@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import './App.css';
 import Savings from "./components/Savings";
 
 function App() {
@@ -99,23 +100,23 @@ function App() {
     <div className="mainAppWindow">
 
       {/* Header Component */}
-      <nav class="navbar navbar-light bg-light mb-5">
-        <div class="container-fluid">
-          <a class="navbar-brand mb-2">My Wallet</a>
+      <nav class="navbar mb-5">
+        <div class="container-fluid py-2">
+          {/* <a class="navbar-brand mb-2 text-white">My Wallet</a> */}
           <form class="d-flex">
             <input
               autoFocus
               class="form-control me-2"
               type="search"
-              placeholder="Enter Amount Here"
+              placeholder="Enter Amount Here..."
               aria-label="Search"
               value={saving.amount}
               onChange={(e) => setSaving({ amount: e.target.value, date: getDate() })}
               onKeyPress={EnterKey}
               id="amount-field"
             />
-            <button class="btn btn-outline-success" onClick={ButtonPress}>
-              Deposit
+            <button className="btn text-white" onClick={ButtonPress}>
+              <i class="fas fa-plus"></i>
             </button>
           </form>
         </div>
