@@ -3,6 +3,11 @@ import ReactDOM from "react-dom";
 import Savings from "./components/Savings";
 
 function App() {
+
+  // Arrays for Days & Months
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
   // React States//
   // Store Current State value
   const [amount, setAmount] = React.useState("");
@@ -10,6 +15,12 @@ function App() {
   const [deposits, addDepositAmount] = React.useState([]);
 
   // EVENT HANDLERS //
+  // When DOM is loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    for (var i = 0; i < localStorage.length; i++) {
+      console.log(i);
+    };
+  });
   // When Enter key is pressed
   function EnterKey(event) {
     if (event.key == "Enter") {
@@ -29,8 +40,14 @@ function App() {
     if (amount != "") {
       addDepositAmount([...deposits, amount]); // Store each deposited amount value inside state
       setAmount("");                           // Reset amount value to ""
-      console.log(`Amount Entered: ${amount}`);
-    }
+
+      // Get Current Date
+      const today = new Date();
+      const DateTime = `${days[today.getDay() - 1]}, ${today.getDate()} ${months[today.getMonth() - 1]}`;
+
+      // Add item to LocalStorage()
+      localStorage.setItem(localStorage.length + 1, [amount, DateTime]);
+    };
   };
 
   return (
@@ -62,11 +79,7 @@ function App() {
       <div className="showAmounts">
         {deposits.map((element, index) => {
           return (
-            <div className="container" key={ index }>
-              <div class="card mt-2">
-                <div class="card-body fs-3">Rs.{ element }</div>
-              </div>
-            </div>
+            <Savings amount={ element } key={ index }/>
           );
         })}
       </div>
