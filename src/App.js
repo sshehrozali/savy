@@ -44,11 +44,25 @@ function App() {
     date: "",
   });
   // Store Deposited Amount value
-  const [deposits, addDepositAmount] = React.useState([]);
+  const [deposits, addDepositAmount] = React.useState(GetLocalStorageData());
 
   // EVENT HANDLERS //
   // When DOM is loaded
+  function GetLocalStorageData() {
+    const Data = [];
 
+    // Get Each Data from LocalStorage()
+    for (var i = 0; i < localStorage.length; i++) {
+      const CurrentItem = JSON.parse(localStorage.getItem(i + 1));
+
+      // Push Object into Data array
+      Data.push({
+        amount: CurrentItem[0],
+        date: CurrentItem[1]
+      });
+    };
+    return Data;
+  };
   // When Enter key is pressed
   function EnterKey(event) {
     if (event.key == "Enter") {
@@ -60,6 +74,7 @@ function App() {
   function ButtonPress(event) {
     event.preventDefault();
     addAmount();
+    GetLocalStorageData();
   }
 
   // Add Savings
@@ -76,13 +91,14 @@ function App() {
       addDepositAmount([...deposits, saving]);
 
       // Add Each Saving to LocalStorage()
-      localStorage.setItem(deposits.length + 1, JSON.stringify([saving.amount, saving.date]));
+      localStorage.setItem(localStorage.length + 1, JSON.stringify([saving.amount, saving.date]));
     };
   };
 
   return (
     <div className="mainAppWindow">
-      {/* Header */}
+
+      {/* Header Component */}
       <nav class="navbar navbar-light bg-light mb-5">
         <div class="container-fluid">
           <a class="navbar-brand mb-2">My Wallet</a>
@@ -105,12 +121,18 @@ function App() {
         </div>
       </nav>
 
-      {/* Amounts */}
-      {/* <div className="showAmounts">
-        {deposits.map((element, index) => {
-          return <Savings amount={element} key={index} />;
-        })}
-      </div> */}
+      {/* Savings Component */}
+      <div className="showAmounts">
+        {
+
+          deposits.map((Obj, index) => {
+            return(
+              <Savings key={ index } date={ Obj.date } amount={ Obj.amount } />
+            );
+          })
+
+        }
+      </div>
     </div>
   );
 }

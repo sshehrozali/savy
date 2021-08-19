@@ -5,7 +5,7 @@ const Savings = (props) => {
     <div className="container mt-2" key={props.key}>
       <div class="card">
         <div class="card-body">
-          <p className="lead text-muted fs-6">{ props.date }</p>
+          <p className="lead text-muted fs-6">{props.date}</p>
           <p className="card-text fs-1">Rs.{props.amount}</p>
         </div>
       </div>
