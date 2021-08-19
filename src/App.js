@@ -100,13 +100,13 @@ function App() {
     <div className="mainAppWindow">
 
       {/* Header Component */}
-      <nav class="navbar mb-5">
-        <div class="container-fluid py-2">
-          {/* <a class="navbar-brand mb-2 text-white">My Wallet</a> */}
-          <form class="d-flex">
+      <nav className="navbar mb-5">
+        <div className="container-fluid py-2">
+          {/* <a className="navbar-brand mb-2 text-white">My Wallet</a> */}
+          <form className="d-flex">
             <input
               autoFocus
-              class="form-control me-2"
+              className="form-control me-2 text-white col-7"
               type="search"
               placeholder="Enter Amount Here..."
               aria-label="Search"
@@ -116,11 +116,15 @@ function App() {
               id="amount-field"
             />
             <button className="btn text-white" onClick={ButtonPress}>
-              <i class="fas fa-plus"></i>
+              <i className="fas fa-plus"></i>
             </button>
           </form>
         </div>
       </nav>
+
+      <div className="container">
+        <p className="fs-5 text-white mb-4 text-muted">Daily Savings &nbsp;<i class="fas fa-wallet"></i></p>
+      </div>
 
       {/* Savings Component */}
       <div className="showAmounts">
