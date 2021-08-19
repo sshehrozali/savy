@@ -4,23 +4,51 @@ import Savings from "./components/Savings";
 
 function App() {
 
-  // Arrays for Days & Months
-  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  // DATE & TIME //
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  function getDate() {
+    // Get Current Date
+    const today = new Date();
+    const DateTime = `${days[today.getDay() - 1]}, ${today.getDate()} ${
+      months[today.getMonth() - 1]
+    }`;
+    return DateTime
+  }
 
-  // React States//
+  // STATES //
   // Store Current State value
-  const [amount, setAmount] = React.useState("");
+  const [saving, setSaving] = React.useState({
+    amount: "",
+    date: "",
+  });
   // Store Deposited Amount value
   const [deposits, addDepositAmount] = React.useState([]);
 
   // EVENT HANDLERS //
   // When DOM is loaded
-  document.addEventListener("DOMContentLoaded", function() {
-    for (var i = 0; i < localStorage.length; i++) {
-      console.log(i);
-    };
-  });
+
   // When Enter key is pressed
   function EnterKey(event) {
     if (event.key == "Enter") {
@@ -34,19 +62,21 @@ function App() {
     addAmount();
   }
 
-  // When User clicks the 'Deposit' Button
-  const addAmount = (e) => {
-    // TODO
-    if (amount != "") {
-      addDepositAmount([...deposits, amount]); // Store each deposited amount value inside state
-      setAmount("");                           // Reset amount value to ""
+  // Add Savings
+  const addAmount = () => {
+    if (saving.amount != "") {
 
-      // Get Current Date
-      const today = new Date();
-      const DateTime = `${days[today.getDay() - 1]}, ${today.getDate()} ${months[today.getMonth() - 1]}`;
+      // Update saving state
+      setSaving({
+        amount: saving.amount,
+        date: getDate(),
+      });
 
-      // Add item to LocalStorage()
-      localStorage.setItem(localStorage.length + 1, [amount, DateTime]);
+      // Store each deposited amount value inside state
+      addDepositAmount([...deposits, saving]);
+
+      // Add Each Saving to LocalStorage()
+      localStorage.setItem(deposits.length + 1, JSON.stringify([saving.amount, saving.date]));
     };
   };
 
@@ -63,8 +93,8 @@ function App() {
               type="search"
               placeholder="Enter Amount Here"
               aria-label="Search"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={saving.amount}
+              onChange={(e) => setSaving({ amount: e.target.value, date: getDate() })}
               onKeyPress={EnterKey}
               id="amount-field"
             />
@@ -76,13 +106,11 @@ function App() {
       </nav>
 
       {/* Amounts */}
-      <div className="showAmounts">
+      {/* <div className="showAmounts">
         {deposits.map((element, index) => {
-          return (
-            <Savings amount={ element } key={ index }/>
-          );
+          return <Savings amount={element} key={index} />;
         })}
-      </div>
+      </div> */}
     </div>
   );
 }
