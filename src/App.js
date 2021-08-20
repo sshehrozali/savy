@@ -1,9 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Howl } from "howler";
 import './App.css';
 import Savings from "./components/Savings";
+import NotifySFX from './misc/PopNotification.mp3';
 
 function App() {
+
+  // Play Pop Notification SFX
+  function playSFX(src) {
+    const Sound = new Howl({
+      src,
+      html5: true
+    });
+    Sound.play();
+  };
 
   // DATE & TIME //
   const days = [
@@ -93,6 +104,7 @@ function App() {
 
       // Add Each Saving to LocalStorage()
       localStorage.setItem(localStorage.length + 1, JSON.stringify([saving.amount, saving.date]));
+      playSFX(NotifySFX);
     };
   };
 
