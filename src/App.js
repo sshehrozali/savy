@@ -79,6 +79,9 @@ function App() {
   function EnterKey(event) {
     if (event.key == "Enter") {
       event.preventDefault();
+
+      // Show Modal
+      document.getElementById("add-btn").click();
       addAmount();
     }
   }
@@ -124,7 +127,7 @@ function App() {
             <input
               autoFocus
               className="form-control me-2 text-white col-7"
-              type="search"
+              type="number"
               placeholder="Enter Amount Here..."
               aria-label="Search"
               value={saving.amount}
@@ -136,6 +139,7 @@ function App() {
             />
             <button
               className="btn text-white"
+              id="add-btn"
               onClick={ButtonPress}
               data-bs-toggle="modal"
               data-bs-target="#SuccessModal"
