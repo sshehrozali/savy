@@ -1,20 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Howl } from "howler";
-import './App.css';
+import "./App.css";
 import Savings from "./components/Savings";
-import NotifySFX from './misc/PopNotification.mp3';
+import Modal from "./components/Modal";
+import NotifySFX from "./misc/PopNotification.mp3";
 
 function App() {
-
   // Play Pop Notification SFX
   function playSFX(src) {
     const Sound = new Howl({
       src,
-      html5: true
+      html5: true,
     });
     Sound.play();
-  };
+  }
 
   // DATE & TIME //
   const days = [
@@ -46,7 +46,7 @@ function App() {
     const DateTime = `${days[today.getDay() - 1]}, ${today.getDate()} ${
       months[today.getMonth() - 1]
     }`;
-    return DateTime
+    return DateTime;
   }
 
   // STATES //
@@ -70,11 +70,11 @@ function App() {
       // Push Object into Data array
       Data.push({
         amount: CurrentItem[0],
-        date: CurrentItem[1]
+        date: CurrentItem[1],
       });
-    };
+    }
     return Data;
-  };
+  }
   // When Enter key is pressed
   function EnterKey(event) {
     if (event.key == "Enter") {
@@ -92,7 +92,6 @@ function App() {
   // Add Savings
   const addAmount = () => {
     if (saving.amount != "") {
-
       // Update saving state
       setSaving({
         amount: saving.amount,
@@ -103,15 +102,21 @@ function App() {
       addDepositAmount([...deposits, saving]);
 
       // Add Each Saving to LocalStorage()
-      localStorage.setItem(localStorage.length + 1, JSON.stringify([saving.amount, saving.date]));
+      localStorage.setItem(
+        localStorage.length + 1,
+        JSON.stringify([saving.amount, saving.date])
+      );
       playSFX(NotifySFX);
-    };
+    }
   };
 
   return (
     <div className="mainAppWindow">
 
-      {/* Header Component */}
+      {/* Modal */}
+      <Modal saved={saving.amount}/>
+
+      {/* Header */}
       <nav className="navbar mb-5">
         <div className="container-fluid py-2">
           {/* <a className="navbar-brand mb-2 text-white">My Wallet</a> */}
@@ -123,11 +128,18 @@ function App() {
               placeholder="Enter Amount Here..."
               aria-label="Search"
               value={saving.amount}
-              onChange={(e) => setSaving({ amount: e.target.value, date: getDate() })}
+              onChange={(e) =>
+                setSaving({ amount: e.target.value, date: getDate() })
+              }
               onKeyPress={EnterKey}
               id="amount-field"
             />
-            <button className="btn text-white" onClick={ButtonPress}>
+            <button
+              className="btn text-white"
+              onClick={ButtonPress}
+              data-bs-toggle="modal"
+              data-bs-target="#SuccessModal"
+            >
               <i className="fas fa-plus"></i>
             </button>
           </form>
@@ -135,20 +147,16 @@ function App() {
       </nav>
 
       <div className="container">
-        <p className="fs-5 text-white mb-4 text-muted">Daily Savings &nbsp;<i class="fas fa-wallet"></i></p>
+        <p className="fs-5 text-white mb-4 text-muted">
+          Daily Savings &nbsp;<i class="fas fa-wallet"></i>
+        </p>
       </div>
 
-      {/* Savings Component */}
+      {/* Savings */}
       <div className="showAmounts">
-        {
-
-          deposits.map((Obj, index) => {
-            return(
-              <Savings key={ index } date={ Obj.date } amount={ Obj.amount } />
-            );
-          })
-
-        }
+        {deposits.map((Obj, index) => {
+          return <Savings key={index} date={Obj.date} amount={Obj.amount} />;
+        })}
       </div>
     </div>
   );

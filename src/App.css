@@ -20,3 +20,8 @@ button{
     button:hover{
         background: #e73737 !important;
     }
+
+.modal-close-btn{
+    outline: none;
+    border-color: #F15152 !important;
+}
